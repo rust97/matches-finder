@@ -1,0 +1,15 @@
+.match-found__container {
+  width: 100%;
+  .match-found__wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .match-found__teams {
+      display: flex;
+      p {
+        margin: 10px 5.5px;
+      }
+    }
+  }
+}

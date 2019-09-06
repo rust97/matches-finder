@@ -8,7 +8,8 @@ function SearchInput(props) {
   console.log(props);
   const [url, setUrl] = useState("");
 
-  function getUrl() {
+  function getUrl(e) {
+    e.preventDefault();
     const num = url.match(/(\w+)(=)(\d+)/gi);
     let obj = {};
     num.forEach(item => {
@@ -21,10 +22,19 @@ function SearchInput(props) {
   }
 
   return (
-    <div>
-      <input type="text" value={url} onChange={e => setUrl(e.target.value)} />
-      <button onClick={() => getUrl()}>get id</button>
-    </div>
+    <form onSubmit={e => getUrl(e)} className="search-form">
+      <input
+        type="text"
+        value={url}
+        onChange={e => setUrl(e.target.value)}
+        className="search-form__input"
+      />
+      <input
+        type="submit"
+        value="Получить результат"
+        className="search-form__btn"
+      />
+    </form>
   );
 }
 
