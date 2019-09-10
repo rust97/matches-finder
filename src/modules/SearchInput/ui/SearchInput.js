@@ -4,7 +4,7 @@ import { searchMatch } from "../../../store/actions/matchesActions";
 import "./SearchInput.scss";
 
 function SearchInput(props) {
-  const { isLoading, searcheRsults, searchMatch } = props;
+  const { isLoading, searchMatch } = props;
   console.log(props);
   const [url, setUrl] = useState("");
 
@@ -16,9 +16,7 @@ function SearchInput(props) {
       const result = item.match(/(\w+)/gi);
       obj[result[0]] = result[1];
     });
-    console.log(obj);
     searchMatch(obj);
-    console.log(searcheRsults);
   }
 
   return (
@@ -29,18 +27,16 @@ function SearchInput(props) {
         onChange={e => setUrl(e.target.value)}
         className="search-form__input"
       />
-      <input
-        type="submit"
-        value="Получить результат"
-        className="search-form__btn"
-      />
+
+      <button className="search-form__btn" onClick={e => getUrl(e)}>
+        Получить результат
+      </button>
     </form>
   );
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.matches.isLoading,
-  searcheRsults: state.matches.searcheRsults
+  isLoading: state.matches.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({

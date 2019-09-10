@@ -5,6 +5,7 @@ export const Api = {
     const { data } = await axios.get(
       "https://bet2affiliates.com/global/feed/json/?language=eng&timeZone=179"
     );
+    console.log(obj, data.sport[obj.sport].region[obj.region]);
     return data.sport[obj.sport].region[obj.region].competition[obj.competition]
       .game[obj.game];
   }

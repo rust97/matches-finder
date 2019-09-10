@@ -33,17 +33,16 @@
 
 .search-form__btn {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  border: 1px solid #bee3f8 !important;
   background: #fff !important;
   border-radius: 20px;
   padding: 0 10px;
   transition: all 0.4s;
   height: 35px;
   cursor: pointer;
+  border: none;
   &:hover {
     transition: all 0.4s;
     background: #4299e1 !important;
-    border: 1px solid #4299e1 !important;
     color: #fff !important;
   }
 }
