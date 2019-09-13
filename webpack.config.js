@@ -14,7 +14,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, "build"),
     historyApiFallback: true,
-    port: 8081,
+    port: 8080,
     disableHostCheck: true
   },
   optimization: {
@@ -44,6 +44,10 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"]
       }
     ]
   }

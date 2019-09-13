@@ -1,35 +1,50 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addMatch } from "../../../store/actions/matchesActions";
+import { postData } from "../../../store/actions/matchesActions";
+import { useMutation } from "@apollo/react-hooks";
+import { DATA } from "../graphql/query.gql";
 import Spinner from "../../../components/Spinner";
 import "./MatchFound.scss";
+import Match from "../../../components/Match";
 
 function MatchFound(props) {
-  const { allMatches, searcheRsults, addMatch, isLoading } = props;
-  const { team1_name, team2_name, start_ts } = searcheRsults;
-  console.log(allMatches);
+  const { searcheRsults, postData, isLoading } = props;
+  const { team1_name, team2_name, start_ts, url, id } = searcheRsults;
+
+  const [postMatch, { data, loading }] = useMutation(DATA, {
+    variables: {
+      url: url,
+      home: team1_name,
+      away: team2_name,
+      start: start_ts,
+      game: id
+    },
+    onCompleted: data => postData(data.addMatch)
+  });
+
   return (
     <div className="match-found__container">
-      {isLoading ? (
+      {isLoading || loading ? (
         <Spinner />
       ) : (
         <React.Fragment>
-          <div className="match-found__wrap">
-            <div className="match-found__teams">
-              <p>{team1_name ? team1_name : "------"}</p>
-              <p>vs</p>
-              <p>{team2_name ? team2_name : "------"}</p>
-            </div>
-            <div className="match-found__time">
-              <p>date/time : {start_ts ? start_ts : "------"}</p>
-            </div>
-          </div>
-          <button
-            className="search-form__btn"
-            onClick={() => addMatch(searcheRsults)}
-          >
-            Добавить
-          </button>
+          {team1_name ? (
+            <Match
+              team1_name={team1_name}
+              team2_name={team2_name}
+              start_ts={start_ts}
+              url={url}
+            />
+          ) : (
+            ""
+          )}
+          {team1_name ? (
+            <button className="search-form__btn" onClick={() => postMatch()}>
+              Добавить
+            </button>
+          ) : (
+            ""
+          )}
         </React.Fragment>
       )}
     </div>
@@ -37,13 +52,12 @@ function MatchFound(props) {
 }
 
 const mapStateToProps = state => ({
-  allMatches: state.matches.allMatches,
-  searcheRsults: state.matches.searcheRsults,
-  isLoading: state.matches.isLoading
+  isLoading: state.matches.isLoading,
+  searcheRsults: state.matches.searcheRsults
 });
 
 const mapDispatchToProps = dispatch => ({
-  addMatch: match => dispatch(addMatch(match))
+  postData: match => dispatch(postData(match))
 });
 
 export default connect(

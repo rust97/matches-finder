@@ -8,10 +8,8 @@ export default function App() {
   return (
     <div className="mainContainer">
       <AllMatches />
-      <MatchFound />
       <SearchInput />
+      <MatchFound />
     </div>
   );
 }
-
-// /(game=)()*(\d+)/gi

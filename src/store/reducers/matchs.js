@@ -4,7 +4,8 @@ import {
   ADD_MATCH,
   REMOVE_MATCH,
   POST_DATA,
-  POST_DATA_SUCCEEDED
+  POST_DATA_SUCCEEDED,
+  GET_ALL_MATCHES
 } from "../constants";
 
 const initialState = {
@@ -23,13 +24,13 @@ export function mainReducer(state = initialState, action) {
     case FIND_MATCH_SUCCEEDED:
       return {
         ...state,
-        searcheRsults: action.match,
+        searcheRsults: { ...action.match, url: action.url },
         isLoading: false
       };
-    case ADD_MATCH:
+    case GET_ALL_MATCHES:
       return {
         ...state,
-        allMatches: [...state.allMatches, action.match]
+        allMatches: action.matches
       };
     case REMOVE_MATCH:
       return {
@@ -42,13 +43,12 @@ export function mainReducer(state = initialState, action) {
     case POST_DATA:
       return {
         ...state,
-        isLoading: true
+        allMatches: [...state.allMatches, action.match]
       };
     case POST_DATA_SUCCEEDED:
       return {
         ...state,
-        searcheRsults: {},
-        isLoading: false
+        searcheRsults: {}
       };
     default:
       return state;

@@ -5,13 +5,12 @@ import "./SearchInput.scss";
 
 function SearchInput(props) {
   const { isLoading, searchMatch } = props;
-  console.log(props);
   const [url, setUrl] = useState("");
 
   function getUrl(e) {
     e.preventDefault();
     const num = url.match(/(\w+)(=)(\d+)/gi);
-    let obj = {};
+    let obj = { url };
     num.forEach(item => {
       const result = item.match(/(\w+)/gi);
       obj[result[0]] = result[1];
