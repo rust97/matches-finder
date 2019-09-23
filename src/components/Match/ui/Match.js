@@ -16,7 +16,7 @@ function Match(props) {
     options
   );
   const startLocal = new Date(start_ts * 1000).toLocaleString("ru", options);
-  console.log(start_ts);
+  
 
   const [deleteMatch, { loading }] = useMutation(DELETE_MATCH, {
     onCompleted: () => removeMatch(idx)

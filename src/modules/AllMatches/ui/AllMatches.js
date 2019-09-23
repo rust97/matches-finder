@@ -8,7 +8,6 @@ import "./AllMatches.scss";
 
 function AllMatches(props) {
   const { allMatches, getAllMatches } = props;
-  console.log(allMatches);
 
   const [getDatafromApi, { data, loading }] = useLazyQuery(DATA, {
     onCompleted: () => getAllMatches(data.allMatches)
